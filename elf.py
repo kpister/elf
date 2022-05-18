@@ -2,7 +2,7 @@ from __future__ import annotations
 import os
 import random
 from dataclasses import dataclass
-from typing import Dict, Any, Optional, List
+from typing import Dict, Optional, List
 import smtplib
 import ssl
 from email.mime.text import MIMEText
@@ -17,14 +17,14 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 class Elf:
     name: str
     email: str
-    secrets: List[str] = None
+    secrets: List[Elf] = None
     significant: Optional[Elf] = None
 
     def __repr__(self):
         return f"Elf(name={self.name}, secrets={', '.join([e.name for e in self.secrets])})"
 
 
-def load_elves() -> List[Elf]:
+def load_elves() -> Dict[str, Elf]:
     with open("elves.yml") as elf_file:
         doc = yaml.load(elf_file.read(), Loader=yaml.FullLoader)
 
